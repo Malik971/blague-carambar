@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion"; // animation smooth
+import { motion } from "framer-motion";
 
 interface ToggleSoundButtonProps {
   enabled: boolean;
@@ -13,22 +13,18 @@ const ToggleSoundButton: React.FC<ToggleSoundButtonProps> = ({
   return (
     <motion.button
       onClick={onToggle}
-      className="absolute top-4 right-4 p-2 rounded-full bg-white shadow border border-gray-400 hover:bg-gray-100 transition"
-      whileTap={{ scale: 0.9, rotate: -15 }}
-      aria-label="Activer/Désactiver le son"
+      className={`fixed top-4 right-4 flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold shadow transition
+        ${enabled ? 'bg-green-100 text-green-800 border border-green-300 hover:bg-green-200' : 'bg-red-100 text-red-800 border border-red-300 hover:bg-red-200'}`}
+      whileTap={{ scale: 0.95 }}
     >
-      <motion.svg
+      <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="w-6 h-6 text-gray-800"
+        className="w-5 h-5"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.3 }}
       >
         {enabled ? (
-          // 🔊 Icône haut-parleur activé
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -36,15 +32,15 @@ const ToggleSoundButton: React.FC<ToggleSoundButtonProps> = ({
             d="M11 5l-6 6h-2v2h2l6 6V5zm4.5 4.5a5 5 0 010 5m2-8a9 9 0 010 11"
           />
         ) : (
-          // 🔇 Icône haut-parleur coupé
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M9 5v14m0-7h.01M21 21l-6-6m0 0l6-6"
+            d="M9.172 9.172a4 4 0 000 5.656m5.656-5.656a4 4 0 010 5.656M15 12h1.5a2.5 2.5 0 010 5H15m-6-9.5v11l5-5.5-5-5.5z"
           />
         )}
-      </motion.svg>
+      </svg>
+      <span>{enabled ? "Son activé" : "Son coupé"}</span>
     </motion.button>
   );
 };

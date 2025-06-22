@@ -1,6 +1,8 @@
 import { useState } from "react";
 import "./index.css";
 import { clickSound } from "./sounds/soundManager";
+import ToggleSoundButton from "./components/ToggleSoundButton";
+import { fetchRandomJoke } from "./components/BlaguesAPI";
 
 function App() {
   const [blague, setBlague] = useState<{
@@ -9,32 +11,32 @@ function App() {
   } | null>(null);
   const [soundEnabled, setSoundEnabled] = useState(true);
 
-  const handleClick = () => {
-    if (soundEnabled) {
-      clickSound.play();
-    }
+  const handleClick = async () => {
+    if (soundEnabled) clickSound.play();
 
-    const data = {
-      question: "Quel est le sport le plus fruité ?",
-      reponse:
-        "La boxe, parce que tu te prends des pêches dans la poire et tu tombes dans les pommes.",
-    };
-    setBlague(data);
+    try {
+      const data = await fetchRandomJoke();
+      setBlague(data);
+    } catch (error) {
+      console.error(error);
+      setBlague({
+        question: "Impossible de charger une blague 😢",
+        reponse: "Vérifie ta connexion ou ton token.",
+      });
+    }
   };
 
   return (
     <div className="min-h-screen bg-yellow-100 flex flex-col items-center justify-center px-4 text-center font-sans">
+      <ToggleSoundButton
+        enabled={soundEnabled}
+        onToggle={() => setSoundEnabled(!soundEnabled)}
+      />
       <header className="mb-8">
         <h1 className="text-4xl sm:text-5xl font-extrabold text-pink-600 drop-shadow">
           😄 Blagues Carambar & Co
         </h1>
         <p className="text-lg text-gray-700 mt-2">Une blague à chaque clic !</p>
-        <button
-          onClick={() => setSoundEnabled(!soundEnabled)}
-          className="absolute top-4 right-4 bg-white border border-gray-400 text-sm px-3 py-1 rounded shadow hover:bg-gray-100 transition"
-        >
-          {soundEnabled ? "🔊 Son activé" : "🔇 Son coupé"}
-        </button>
       </header>
 
       <main className="w-full max-w-md">
