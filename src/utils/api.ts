@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000/api/v1/blagues";
+const API_URL = "https://blague-back.onrender.com/api/v1/blagues";
 
 export async function fetchRandomBlague() {
   const res = await fetch(`${API_URL}/random`);
