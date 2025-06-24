@@ -3,6 +3,7 @@ import "./index.css";
 import { clickSound } from "./sounds/soundManager";
 import ToggleSoundButton from "./components/ToggleSoundButton";
 import { fetchRandomJoke } from "./components/BlaguesAPI";
+import { fetchRandomBlague } from "./utils/api";
 
 function App() {
   const [blague, setBlague] = useState<{
@@ -10,12 +11,14 @@ function App() {
     reponse: string;
   } | null>(null);
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [source, setSource] = useState<"api" | "perso">("api");
 
   const handleClick = async () => {
     if (soundEnabled) clickSound.play();
 
     try {
-      const data = await fetchRandomJoke();
+      const data =
+        source === "api" ? await fetchRandomJoke() : await fetchRandomBlague();
       setBlague(data);
     } catch (error) {
       console.error(error);
@@ -32,11 +35,30 @@ function App() {
         enabled={soundEnabled}
         onToggle={() => setSoundEnabled(!soundEnabled)}
       />
-      <header className="mb-8">
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-pink-600 drop-shadow">
+      <header className="mb-6">
+        <h1 className="text-4xl sm:text-5xl font-extrabold text-pink-600 drop-shadow mb-2">
           😄 Blagues Carambar & Co
         </h1>
-        <p className="text-lg text-gray-700 mt-2">Une blague à chaque clic !</p>
+        <p className="text-lg text-gray-700">Une blague à chaque clic !</p>
+        {/* Choix de la source */}
+        <div className="mt-4 flex gap-4 justify-center">
+          <button
+            onClick={() => setSource("api")}
+            className={`px-4 py-1 rounded-full font-medium transition ${
+              source === "api" ? "bg-blue-500 text-white" : "bg-white border"
+            }`}
+          >
+            blague en ligne
+          </button>
+          <button
+            onClick={() => setSource("perso")}
+            className={`px-4 py-1 rounded-full font-medium transition ${
+              source === "perso" ? "bg-green-500 text-white" : "bg-white border"
+            }`}
+          >
+            📁 Blagues perso
+          </button>
+        </div>
       </header>
 
       <main className="w-full max-w-md">
