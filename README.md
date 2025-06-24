@@ -1,54 +1,107 @@
-# React + TypeScript + Vite
+# Blagues Carambar & Co 🌟 (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bienvenue dans la partie **frontend** du projet **Blagues Carambar & Co**, une mini application web amusante pour afficher des blagues aléatoires !
 
-Currently, two official plugins are available:
+Cette application est construite avec **React + Vite + TypeScript**, stylée avec **Tailwind CSS**, et enrichie de sons rigolos avec **Howler.js**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 📅 Objectif
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Offrir une expérience interactive et fun avec des blagues affichées au clic, provenant soit :
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+* d'une **API externe** ([https://www.blagues-api.fr](https://www.blagues-api.fr))
+* de notre **API backend perso** (Node/Express/Sequelize)
+
+---
+
+## 🚀 Technologies utilisées
+
+* [React](https://reactjs.org/) + [Vite](https://vitejs.dev/)
+* [TypeScript](https://www.typescriptlang.org/)
+* [Tailwind CSS](https://tailwindcss.com/)
+* [Howler.js](https://github.com/goldfire/howler.js/) (sons)
+* [Framer Motion](https://www.framer.com/motion/) (animations)
+* [GitHub Pages](https://pages.github.com/) pour le déploiement
+
+---
+
+## 📚 Fonctionnalités
+
+* 🎶 Bouton interactif avec son à chaque clic (activable/désactivable)
+* 😀 Affichage d'une blague aléatoire (question + réponse)
+* 🔄 Deux sources de blagues : API externe / API perso
+* 🌈 Expérience visuelle dynamique et responsive
+
+---
+
+## 📂 Structure du projet
+
+```
+blagues-front/
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── ToggleSoundButton.tsx
+│   │   ├── BlaguesAPI.ts (appel blagues-api.fr)
+│   │   └── api.ts (appel API perso localhost)
+│   ├── sounds/
+│   │   └── soundManager.ts
+│   ├── App.tsx
+│   ├── index.css
+│   └── main.tsx
+├── tailwind.config.js
+├── vite.config.ts
+└── package.json
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🔧 Installation locale
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+git clone https://github.com/votre-nom/blagues-front.git
+cd blagues-front
+npm install
+npm run dev
 ```
+
+---
+
+## ⚖️ Configuration
+
+### Variables d'environnement (optionnel)
+
+Créer un fichier `.env` si vous utilisez une API backend locale :
+
+```
+VITE_API_URL=http://localhost:3000/api/v1/blagues
+```
+
+> Sinon, l'application utilise l'API publique de [https://www.blagues-api.fr](https://www.blagues-api.fr) par défaut.
+
+---
+
+## ✨ Déploiement
+
+Le projet est prêt à être déployé via **GitHub Pages** (vite-plugin).
+
+```bash
+npm run build
+npm run deploy
+```
+
+---
+
+## ℹ️ Infos supplémentaires
+
+* Vous pouvez obtenir un **token personnel** sur [https://www.blagues-api.fr/](https://www.blagues-api.fr/)
+* Toutes les blagues affichées via l'API externe excluent les catégories "dark" et "limit"
+
+---
+
+## 🎓 Projet personnel CDA
+
+Projet réalisé dans le cadre de la formation **Concepteur Développeur d'Application**.
+
+Créé avec humour et passion par **Malik Ibo** ✨
